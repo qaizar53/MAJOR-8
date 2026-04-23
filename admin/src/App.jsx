@@ -9,6 +9,7 @@ import Dashboard from './pages/Admin/Dashboard';
 import AddDoctor from './pages/Admin/AddDoctor';
 import AddAppointments from './pages/Admin/AddAppointments';
 import DoctorsList from './pages/Admin/DoctorsList';
+import AdminHome from './pages/Admin/AdminHome';
 
 const App = () => {
 
@@ -23,7 +24,7 @@ const App = () => {
 
         <Routes>
 
-          <Route path='/' element={<></>} />
+          <Route path='/' element={<AdminHome />} />
           <Route path='/admin-dashboard' element={<Dashboard />} />
           <Route path='/add-appointments' element={<AddAppointments />} />
           <Route path='/add-doctor' element={<AddDoctor />} />
