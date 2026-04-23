@@ -301,13 +301,13 @@ export const doctors = [
         name: 'Dr. Michael Carter',
         image: doc16,
         speciality: 'Gastroenterologist',
-        degree: 'MBBS, MD (Gastroenterology)',
+        degree: 'MBBS',
         experience: '5 Years',
-        about: 'Dr. Michael Carter specializes in diagnosing and treating digestive system disorders, including liver diseases, acid reflux, and irritable bowel syndrome. He focuses on accurate diagnosis and personalized treatment plans for long-term health.',
+        about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
         fees: 50,
         address: {
-            line1: '22nd Avenue, Green Park',
-            line2: 'Sector 5, New Delhi, India'
+            line1: '17th Cross, Richmond',
+            line2: 'Circle, Ring Road, London'
         }
     },
 ]
