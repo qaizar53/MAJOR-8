@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import { AdminContext } from "../context/AdminContext";
 import axios from 'axios'
 import { toast } from "react-toastify";
+import { DoctorContext } from "../context/DoctorContext";
 
 const Login = () => {
     const [state, setState] = useState("Admin");
@@ -10,6 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const { setAToken, backendUrl } = useContext(AdminContext);
+    const { setDToken } = useContext(DoctorContext);
 
     const onSubmithandler = async (event) => {
         event.preventDefault();
@@ -27,12 +29,19 @@ const Login = () => {
                 }
 
             } else {
+                const { data } = await axios.post(backendUrl + '/api/doctor/login', { email, password })
 
+                if (data.success) {
+                    localStorage.setItem('dToken', data.token)
+                    setDToken(data.token)
+                    console.log(data.token)
+                } else {
+                    toast.error(data.message)
+                }
             }
         } catch (error) {
             console.log(error)
         }
-
     };
 
     return (
@@ -71,18 +80,14 @@ const Login = () => {
                 </button>
 
                 {state === "Admin" ? (
-                    <p
-                        className="text-md cursor-pointer text-blue-500 mt-3"
-                        onClick={() => setState("Doctor")}
-                    >
-                        Login as Admin
+                    <p className="text-md cursor-pointer text-blue-500 mt-3"
+                        onClick={() => setState("Doctor")}>
+                        Login as Doctor
                     </p>
                 ) : (
-                    <p
-                        className="text-md cursor-pointer text-blue-500 mt-3"
-                        onClick={() => setState("Admin")}
-                    >
-                        Login as Doctor
+                    <p className="text-md cursor-pointer text-blue-500 mt-3"
+                        onClick={() => setState("Admin")}>
+                        Login as Admin
                     </p>
                 )}
             </div>

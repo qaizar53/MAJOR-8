@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext'
 
 const TopDoctors = () => {
     const navigate = useNavigate()
-    const {doctors} = useContext(AppContext)
+    const { doctors } = useContext(AppContext)
     return (
         <div className='flex flex-col items-center my-16 md:mx-10 gap-4 text-gray-800'>
 
@@ -19,16 +19,21 @@ const TopDoctors = () => {
 
                         <img className='bg-blue-50' src={item.image} alt="" />
                         <div className='p-4'>
-                            <div className='flex items-center gap-2 text-sm text-center text-green-500'>
-                                <p className='w-2 h-2 bg-green-500 rounded-full'></p><p>Available</p>
+
+                            <div className='flex items-center gap-2 text-sm text-center'>
+                                <p className={`w-2 h-2 ${item.available ? 'bg-green-500' : 'bg-gray-600'} rounded-full`}></p>
+                                <p className={`text-xs ${item.available ? 'text-green-500' : 'line-through text-gray-600'}`}>
+                                    Available
+                                </p>
                             </div>
+
                             <p className='text-gray-900 text-lg font-medium'>{item.name}</p>
                             <p className='text-gray-600 text-sm'>{item.speciality}</p>
                         </div>
                     </div>
                 ))}
             </div>
-            <button onClick={()=> {navigate('/doctors'); scrollTo(0,0)}} className='bg-blue-50 text-gray-600 px-12 py-3 rounded-full mt-10'>More</button>
+            <button onClick={() => { navigate('/doctors'); scrollTo(0, 0) }} className='bg-blue-50 text-gray-600 px-12 py-3 rounded-full mt-10'>More</button>
         </div>
     )
 }

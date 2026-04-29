@@ -2,17 +2,22 @@ import { useContext, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AdminContext } from "../context/AdminContext";
 import { assets } from "../assets/assets";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { DoctorContext } from "../context/DoctorContext";
 
 const AdminNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { aToken, setAToken } = useContext(AdminContext)
+    const { dToken, setDToken } = useContext(DoctorContext)
+
     const navigate = useNavigate()
 
     const logout = () => {
         navigate('/')
         aToken && setAToken('')
         aToken && localStorage.removeItem('aToken')
+        dToken && setDToken('')
+        dToken && localStorage.removeItem('dToken')
     }
 
     return (
@@ -21,7 +26,7 @@ const AdminNavbar = () => {
 
                 {/* Logo / Title */}
                 {/* <h1 className="text-xl font-bold">Admin Panel</h1> */}
-                <div onClick={()=> navigate("/")} className="flex items-center gap-2 text-xs">
+                <div onClick={() => navigate("/")} className="flex items-center gap-2 text-xs">
 
                     <img className="w-36 sm:w-40 cursor-pointer" src={assets.admin_logo} alt="" />
 

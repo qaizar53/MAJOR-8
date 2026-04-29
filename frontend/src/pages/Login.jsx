@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+
+  const { token, setToken, backendUrl } = useContext(AppContext)
+
+  const navigate = useNavigate()
 
   const [state, setState] = useState('Sign Up')
   const [email, setEmail] = useState('')
@@ -9,7 +18,39 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault()
+
+    try {
+
+      if (state === 'Sign Up') {
+        const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password })
+
+        if (data.success) {
+          localStorage.setItem('token', data.token)
+          setToken(data.token)
+        } else {
+          toast.error(data.error)
+        }
+      } else {
+        const { data } = await axios.post(backendUrl + '/api/user/login', { email, password })
+
+        if (data.success) {
+          localStorage.setItem('token', data.token)
+          setToken(data.token)
+        } else {
+          toast.error(data.error)
+        }
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
+
+  useEffect(() => {
+    if (token) {
+      navigate('/')
+    }
+  }, [token])
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -33,7 +74,7 @@ const Login = () => {
               <input
                 type="name"
                 value={name}
-                onChange={(e) => setName(e.target.name)}
+                onChange={(e) => setName(e.target.value)}
                 required
                 className="w-full mt-1 p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
                 placeholder="Enter your Full Name"
@@ -47,7 +88,7 @@ const Login = () => {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.email)}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full mt-1 p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your email"
@@ -60,7 +101,7 @@ const Login = () => {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.password)}
+              onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full mt-1 p-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your password"
