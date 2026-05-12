@@ -28,7 +28,7 @@ const AdminNavbar = () => {
                 {/* <h1 className="text-xl font-bold">Admin Panel</h1> */}
                 <div onClick={() => navigate("/")} className="flex items-center gap-2 text-xs">
 
-                    <img className="w-36 sm:w-40 cursor-pointer" src={assets.admin_logo} alt="" />
+                    <img className="w-[63px] h-[75px] sm:w-34 cursor-pointer" src={assets.admin_logo1} alt="" />
 
                     <p className="border px-2.5 py-0.5 rounded-full border-gray-500"> {aToken ? "Admin" : "Doctor"} </p>
                 </div>
